@@ -20,13 +20,14 @@ export const reducer = (state, action) => {
             return [...state, newTodo]
 
         case 'TOGGLE_COMPLETE':
-            return {
-                
-            }
-        case 'REMOVE_TODO':
-            return {
-                
-            }
+            return state.map(item => {
+               return item.id === action.payload ? {
+                    ...item, completed: !item.completed } : item
+            }) 
+
+        case 'REMOVE_COMPLETE':
+            return state.filter(item => !item.completed)
+
         default:
             return state
     }

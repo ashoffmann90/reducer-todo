@@ -1,5 +1,6 @@
 import React, {useState, useReducer} from 'react'
 import {initialState, reducer} from '../reducers/reducer'
+import { Todo } from './Todo'
 
 function TodoForm() {
     const [newTodo, setNewTodo] = useState('')
@@ -16,6 +17,10 @@ function TodoForm() {
         dispatch({ type: 'ADD_TODO', payload: newTodo })
     }
 
+    const handleClear = e => {
+        e.preventDefault()
+        dispatch({ type: 'REMOVE_COMPLETE' })
+    }
 
     return (
         <div>
@@ -30,45 +35,21 @@ function TodoForm() {
             <button type='submit' onClick={handleSubmit}>
                 Add Todo
             </button>
+            <button type='submit' onClick={handleClear}>
+                Clear
+            </button>
+            <div>
+                {state.map(item => (
+                    <Todo 
+                    state={item}
+                    dispatch={dispatch}
+                    id={item.id}
+                    />
+                ))}
+            </div>
         </div>
     )
 }
 
 export default TodoForm
 
-
-
-// import React, {useState, useReducer} from 'react'
-
-// const TodoForm = (props) => {
-
-//     const [newTodoText, setNewTodoText] = useState('')
-
-
-//     const handleChanges = e => {
-//         setNewTodoText(e.target.value)
-//     }
-
-//     const submitItem = e => {
-//         e.preventDefault()
-//         setNewTodoText(e.target.value)
-//     }
-
-//     return (
-//         <div>
-//             <form onSubmit={submitItem}>
-//                 <input
-//                     type='text'
-//                     name='newTodoText'
-//                     value={newTodoText}
-//                     onChange={handleChanges}
-//                 />
-//                 <button>
-//                     Add Todo
-//                 </button>
-//             </form>
-//         </div>
-//     )
-// }
-
-// export default TodoForm
