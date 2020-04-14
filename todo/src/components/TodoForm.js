@@ -11,6 +11,11 @@ function TodoForm() {
         setNewTodo(e.target.value)
     }
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        dispatch({ type: 'ADD_TODO', payload: newTodo })
+    }
+
 
     return (
         <div>
@@ -22,7 +27,7 @@ function TodoForm() {
                 onChange={handleChanges}
                 />
             </form>
-            <button>
+            <button type='submit' onClick={handleSubmit}>
                 Add Todo
             </button>
         </div>
